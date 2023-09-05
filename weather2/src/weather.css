@@ -1,0 +1,175 @@
+* {
+    margin: 5px;
+    padding: 0px;
+    font-size: 18px;
+}
+
+body {
+    font-family: 'Inria Serif', serif;
+}
+
+/* Header section */
+
+header h1 {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 35px;
+}
+
+/* Search section */
+
+#search-section {
+    margin-top: 20px;
+}
+
+#city-name {
+    border-radius: 30px;
+    background-color: #D9D9D9;
+    border: none;
+    width: 220px;
+    height: 25px;
+    padding-left: 15px;
+}
+
+#search-button {
+    border-radius: 30px;
+    background-color: #E3B55A;
+    border: none;
+    width: 100px;
+    height: 25px;
+}
+
+/* Main result */
+
+#weather-forecast {
+    margin-top: 20px;
+}
+
+.result-city {
+    display: flex;
+    column-gap: 10px;
+    align-items: center
+}
+
+.result-city button {
+    background-color: #E3B55A;
+    border-radius: 50%;
+    border: none;
+    height: 20px;
+    width: 20px;
+}
+
+.date {
+    font-style: italic;
+    font-size: 15px;
+}
+
+.condition {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.current-weather {
+    display: flex;
+    column-gap: 20px;
+    align-items: center
+}
+
+.city-forecast h2 {
+    font-size: 40px;
+}
+
+.city-forecast img {
+    width: 70px;
+    height: 70px;
+}
+
+.current-temperature {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+#properties {
+    display: flex;
+    column-gap: 15px;
+    font-style: italic;
+}
+
+#properties span:hover {
+    color: #E3B55A;
+}
+
+/* Pop up section */
+
+#pop-up-container {
+    /*display: none;*/
+    position: fixed;
+    top: 50px;
+    right: 100px;
+    width: 25%;
+    background-color: #D9D9D9;
+}
+
+.close-button {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+}
+
+.pop-up-line {
+    width: 100%;
+    margin: 0px;
+    height: 2px;
+    color: #000000;
+    background-color: #000000;
+    border: none;
+}
+
+.map {
+    height: 100px;
+    width: 100px;
+}
+
+/* Future hours section */
+
+#future-weather {
+    margin-top: 20px;
+}
+
+.forecast-line {
+    width: 100%;
+    margin: 0px;
+    height: 2px;
+    color: #d9d9d9;
+    background-color: #D9D9D9;
+    border: none;
+}
+
+.future-hours {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.weather-slot {
+    background-color: #D9D9D9;
+    height: 120px;
+    width: 120px;
+    text-align: center;
+    -webkit-border-top-left-radius: 30px;
+    -webkit-border-top-right-radius: 30px;
+    -moz-border-radius-topleft: 30px;
+    -moz-border-radius-topright: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.next-hours {
+    font-size: 15px;
+    font-style: italic;
+}
+
+.next-temperature {
+    font-size: 23px;
+    font-weight: 700;
+}

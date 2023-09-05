@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="weather.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <h1>Tech Chuckle-Trek</h1>
+    </header>
+
+    <!-- Search section -->
+    <section id="search-section">
+        <form id="city-search-form" class="search-container">
+            <input type="text" id="city-name" placeholder="Type your city here">
+            <button type="submit" id="search-button">Search</button>
+        </form>
+    </section>
+
+    <!-- Main result section -->
+    <section id="weather-forecast">
+        <div class="city-forecast">
+            <div class="result-city">
+                <h2>Result for city</h2>
+                <button> </button>
+            </div>
+            <div class="forecast-details">
+                <p><span class="date">September 5, 2023</span></p>
+                <p><span class="condition">Sunny</span></p>
+                <div class="current-weather">
+                    <img src="./weather-icons/clear.svg" alt="icon-condition">
+                    <p class="current-temperature">25°C</p>
+                </div>
+                <div id="properties">
+                    <span class="temperature">Temperature</span>
+                    <span class="precipitation">Precipitation</span>
+                    <span class="wind">Wind</span>
+                </div>
+            </div>
+    </section>
+
+    <!-- Pop up section -->
+    <div id="pop-up-container">
+        <h2>About this location</h2>
+        <span class="close-button">&#x2716;</span>
+        <hr class="pop-up-line">
+        <div class="map">future map</div>
+        <p>Text below the map</p>
+    </div>
+
+    <!-- Future hours section -->
+    <section id="future-weather">
+        <hr class="forecast-line">
+        <div class="future-hours">
+            <div class="weather-slot">
+                <p class="next-hours">01:00pm</p>
+                <p class="next-temperature">25°C</p>
+                <p>Sunny</p>
+            </div>
+            <div class="weather-slot">
+                <p class="next-hours">04:00pm</p>
+                <p class="next-temperature">22°C</p>
+                <p>Cloudy</p>
+            </div>
+            <div class="weather-slot">
+                <p class="next-hours">07:00pm</p>
+                <p class="next-temperature">20°C</p>
+                <p>Rainy</p>
+            </div>
+            <div class="weather-slot">
+                <p class="next-hours">11:00pm</p>
+                <p class="next-temperature">28°C</p>
+                <p>Sunny</p>
+            </div>
+            <div class="weather-slot">
+                <p class="next-hours">02:00am</p>
+                <p class="next-temperature">18°C</p>
+                <p>Foggy</p>
+            </div>
+            <div class="weather-slot">
+                <p class="next-hours">05:00am</p>
+                <p class="next-temperature">23°C</p>
+                <p>Partly Cloudy</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script src="script.js"></script>
+
+</html>
