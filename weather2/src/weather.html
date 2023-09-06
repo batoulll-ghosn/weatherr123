@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 
     <!-- Search section -->
     <section id="search-section">
-        <form id="city-search-form" class="search-container">
+        <form id="city-search-form" class="search-container" onSubmit={handleSubmit}>
             <input type="text" id="city-name" placeholder="Type your city here">
             <button type="submit" id="search-button">Search</button>
         </form>
@@ -30,18 +30,17 @@
     <section id="weather-forecast">
         <div class="city-forecast">
             <div class="result-city">
-                <h2>Result for city</h2>
-                <button> </button>
+                <h2 id="wanted-script">Results for City</h2>
+                <button id="pop-up"> </button>
             </div>
             <div class="forecast-details">
-                <p><span class="date">September 5, 2023</span></p>
-                <p><span class="condition">Sunny</span></p>
+                <p><span class="date"></span></p>
                 <div class="current-weather">
-                    <img src="./weather-icons/clear.svg" alt="icon-condition">
-                    <p class="current-temperature">25°C</p>
+                    <img alt="icon-condition" src="./weather-icons/smile.jpg">
+                    <p class="current-temperature"></p>
                 </div>
                 <div id="properties">
-                    <span class="temperature">Temperature</span>
+                    <span class="temperature"><a href="weather.html">Temperature</a></span>
                     <span class="precipitation">Precipitation</span>
                     <span class="wind">Wind</span>
                 </div>
@@ -50,48 +49,18 @@
     </section>
 
     <!-- Pop up section -->
-    <div id="pop-up-container">
+    <div id="pop-up-container" style="display: none;">
         <h2>About this location</h2>
         <span class="close-button">&#x2716;</span>
         <hr class="pop-up-line">
         <div class="map">future map</div>
         <p>Text below the map</p>
     </div>
-
     <!-- Future hours section -->
     <section id="future-weather">
         <hr class="forecast-line">
         <div class="future-hours">
-            <div class="weather-slot">
-                <p class="next-hours">01:00pm</p>
-                <p class="next-temperature">25°C</p>
-                <p>Sunny</p>
-            </div>
-            <div class="weather-slot">
-                <p class="next-hours">04:00pm</p>
-                <p class="next-temperature">22°C</p>
-                <p>Cloudy</p>
-            </div>
-            <div class="weather-slot">
-                <p class="next-hours">07:00pm</p>
-                <p class="next-temperature">20°C</p>
-                <p>Rainy</p>
-            </div>
-            <div class="weather-slot">
-                <p class="next-hours">11:00pm</p>
-                <p class="next-temperature">28°C</p>
-                <p>Sunny</p>
-            </div>
-            <div class="weather-slot">
-                <p class="next-hours">02:00am</p>
-                <p class="next-temperature">18°C</p>
-                <p>Foggy</p>
-            </div>
-            <div class="weather-slot">
-                <p class="next-hours">05:00am</p>
-                <p class="next-temperature">23°C</p>
-                <p>Partly Cloudy</p>
-            </div>
+
         </div>
     </section>
 
