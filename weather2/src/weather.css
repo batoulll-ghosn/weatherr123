@@ -22,7 +22,7 @@ header h1 {
     margin-top: 20px;
 }
 
-#city-name {
+#cityName {
     border-radius: 30px;
     background-color: #D9D9D9;
     border: none;
@@ -37,6 +37,7 @@ header h1 {
     border: none;
     width: 100px;
     height: 25px;
+    cursor: pointer;
 }
 
 /* Main result */
@@ -52,7 +53,8 @@ header h1 {
 }
 
 .forecast-details {
-    background-color: #d9d9d9;
+    background-color: #D9D9D9;
+    display: inline-block;
 }
 
 .result-city button {
@@ -97,10 +99,17 @@ header h1 {
     display: flex;
     column-gap: 15px;
     font-style: italic;
+    cursor: pointer;
 }
 
 #properties span:hover {
     color: #E3B55A;
+    cursor: pointer;
+}
+
+.active {
+    color: white;
+    text-decoration: underline;
 }
 
 /* Pop up section */
