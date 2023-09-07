@@ -6,12 +6,13 @@ import smile from './weather-icons/smile.jpg';
 const App = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastData, setForecastData] = useState([]);
-  // const [cityName, setCityName]= useState(''); 
+  const [cityName2, setCityName2]= useState(''); 
   let cityName = '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     cityName = e.target[0].value;
+    setCityName2(cityName);
     console.log(cityName);
     console.log(e.target.value);
     console.log(e);
@@ -56,7 +57,7 @@ const App = () => {
             <button id="pop-up"> </button>
           </div>
           <div>
-            {currentWeather && <WeatherForecast currentWeather={currentWeather} />}</div>
+            {currentWeather && <WeatherForecast cityName = {cityName2} currentWeather={currentWeather} />}</div>
         </div>
       </section>
 
