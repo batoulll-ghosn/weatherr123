@@ -29,7 +29,7 @@ function getWeatherIcon(weatherMain) {
         case 'Rain':
             return rain;
         default:
-            return snow;
+            return cloudy;
     }
 }
 

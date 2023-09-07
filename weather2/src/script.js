@@ -50,7 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         minute: "2-digit",
                     });
                     const forecastTemperature = Math.round(forecast.main.temp - 273.15) + "°C";
-                    const forecastDescription = forecast.weather[0].description;
+                    forecastTemperature.class = "next-temperature";
+                    // const forecastDescription = forecast.weather[0].description;
                     const forecastMain = forecast.weather[0].main;
 
                     const weatherSlot = document.createElement("div");

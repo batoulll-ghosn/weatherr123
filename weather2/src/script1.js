@@ -11,10 +11,8 @@ function initMap(coordinates) {
     }).addTo(map);
 }
 
-// Add an event listener to the form for submission
-const citySearchForm = document.getElementById('city-search-form');
-
-citySearchForm.addEventListener("submit", function (event) {
+// Function to handle form submission and map display
+function handleFormSubmission(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
     // Get the city name entered by the user
@@ -28,7 +26,6 @@ citySearchForm.addEventListener("submit", function (event) {
             if (data.features.length > 0) {
                 // Get the coordinates (longitude and latitude) from the geocoding response
                 const coordinates = data.features[0].center;
-
                 // Initialize and display the map with the coordinates
                 initMap(coordinates);
 
@@ -41,27 +38,27 @@ citySearchForm.addEventListener("submit", function (event) {
         .catch(error => {
             console.error('Error fetching city coordinates:', error);
         });
-});
+}
 
-// Rest of your code for pop-up button and pop-up container
+// Add an event listener to the form for submission when the document is ready
+document.addEventListener("DOMContentLoaded", function () {
+    const citySearchForm = document.getElementById('city-search-form');
+    const popUpContainer = document.getElementById('pop-up-container');
+    const popUpButton = document.getElementById('pop-up');
+    const closePopUpButton = document.querySelector('.close-button');
 
+    // Add an event listener to the form for submission
+    citySearchForm.addEventListener("submit", handleFormSubmission);
 
+    // Add a click event listener to the pop-up button
+    popUpButton.addEventListener("click", () => {
+        // Show the pop-up by setting its display property to "block"
+        popUpContainer.style.display = "block";
+    });
 
-// Get references to the pop-up container and the pop-up close button
-const popUpContainer = document.getElementById("pop-up-container");
-const closePopUpButton = document.querySelector(".close-button");
-
-// Get reference to the pop-up button
-const popUpButton = document.getElementById("pop-up");
-
-// Add a click event listener to the pop-up button
-popUpButton.addEventListener("click", () => {
-    // Show the pop-up by setting its display property to "block"
-    popUpContainer.style.display = "block";
-});
-
-// Add a click event listener to the close button to hide the pop-up
-closePopUpButton.addEventListener("click", () => {
-    // Hide the pop-up by setting its display property to "none"
-    popUpContainer.style.display = "none";
+    // Add a click event listener to the close button to hide the pop-up
+    closePopUpButton.addEventListener("click", () => {
+        // Hide the pop-up by setting its display property to "none"
+        popUpContainer.style.display = "none";
+    });
 });

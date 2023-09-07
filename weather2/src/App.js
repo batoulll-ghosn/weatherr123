@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import WeatherForecast from './WeatherForecast';
 import FutureWeather from './FutureWeather';
 import smile from './weather-icons/smile.jpg';
+
 const App = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastData, setForecastData] = useState([]);
+  // const [cityName, setCityName]= useState(''); 
+  let cityName = '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const cityName = e.target.cityName.value;
+    cityName = e.target[0].value;
+    console.log(cityName);
+    console.log(e.target.value);
+    console.log(e);
     const apiKey = '5b6af831ac48b7b26262ac5fe047fbd4';
 
     try {
@@ -24,6 +30,10 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
+    let result = document.getElementById('result');
+    result.innerHTML = cityName;
+    result.style.fontSize = "40px";
+    result.style.textTransform = "capitalize";
   };
 
   return (
@@ -42,7 +52,7 @@ const App = () => {
       <section id="weather-forecast">
         <div className="city-forecast">
           <div className="result-city">
-            <h2 id="wanted-script">Results for City</h2>
+            <h2 id="wanted-script">Results for <span id="result"></span></h2>
             <button id="pop-up"> </button>
           </div>
           <div>
