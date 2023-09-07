@@ -1,69 +1,75 @@
-import React, { useState } from 'react'; // Import useState here
+import React, { useState, useEffect } from 'react';
 import cloudy from './weather-icons/cloudy.svg';
 import clear from './weather-icons/clear.svg';
 import rain from './weather-icons/rain.svg';
-import snow from './weather-icons/snow.svg';
 
 const WeatherForecast = ({ currentWeather, cityName }) => {
-const [humidityValue, setHumidity] = useState(null);
-const [windValue, setWind] = useState(null);
-const [currentTemperature, setCurrentTemperature] = useState('');
-const [value, setValue] = useState(Math.round(currentWeather.main.temp - 273.15)+ " °C");
-const apiKey = "5b6af831ac48b7b26262ac5fe047fbd4";
-const handleFormSubmit = (e)=>{
-    e.preventDefault();
-    fetchHumidity();
-    fetchWind();
-};
-const getTemperature = () => {
-    setValue(Math.round(currentWeather.main.temp - 273.15)+ " °C")
-}
+  const [humidityValue, setHumidity] = useState(null);
+  const [windValue, setWind] = useState(null);
+  const [currentTemperature, setCurrentTemperature] = useState('');
+  const [value, setValue] = useState('');
+  const apiKey = "5b6af831ac48b7b26262ac5fe047fbd4";
 
-const fetchHumidity = () => {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`)
-    .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    const humidityValue = data && data.list[0].main.humidity;
-                    //currentTemperature.textContent = humidityValue + "%";
-                    setValue(humidityValue + " %");
-                });
-};
+  // Fetch data when the component mounts or when the cityName prop changes
+  useEffect(() => {
+    fetchWeatherData();
+  }, [cityName]);
 
-const fetchWind = () => {
+  const fetchWeatherData = () => {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`)
-    .then((response) => response.json())
-                .then((data) => {
-                    const windValue = (data.list[0].wind.speed)*10;
-                    setValue(windValue + " km/h");
-                });
-}
-const getWeatherIcon = (weatherMain)=> {
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const humidityValue = data && data.list[0].main.humidity;
+        const windValue = (data.list[0].wind.speed) * 10;
+        const temperatureValue = Math.round(data.list[0].main.temp - 273.15) + " °C";
+
+        setHumidity(humidityValue + " %");
+        setWind(windValue + " km/h");
+        setCurrentTemperature(temperatureValue);
+        setValue(temperatureValue);
+      });
+  };
+
+  const getWeatherIcon = (weatherMain) => {
     switch (weatherMain) {
-        case 'Clouds':
-            return cloudy;
-        case 'Clear':
-            return clear;
-        case 'Rain':
-            return rain;
-        default:
-            return cloudy;
+      case 'Clouds':
+        return cloudy;
+      case 'Clear':
+        return clear;
+      case 'Rain':
+        return rain;
+      default:
+        return cloudy;
     }
-};
-    return (
+  };
+
+  const handleTemperatureClick = () => {
+    setValue(currentTemperature);
+  };
+
+  const handleHumidityClick = () => {
+    setValue(humidityValue);
+  };
+
+  const handleWindClick = () => {
+    setValue(windValue);
+  };
+
+  return (
     <div className="forecast-details">
-        <p><span className="date">{new Date(currentWeather.dt * 1000).toDateString()}</span></p>
-        <div className="current-weather">
-            <img alt="icon-condition" src={getWeatherIcon(currentWeather.weather[0].main)} />
-                <p className="current-temperature">{value}</p>
-        </div>
-        <div id="properties">
-            <span className="temperature" onClick={getTemperature}>Temperature</span>
-            <span className="humidity" onClick={fetchHumidity}>Humidity</span>
-            <span className="wind" onClick={fetchWind}>Wind</span>
-        </div>
+      <p><span className="date">{new Date(currentWeather.dt * 1000).toDateString()}</span></p>
+      <div className="current-weather">
+        <img alt="icon-condition" src={getWeatherIcon(currentWeather.weather[0].main)} />
+        <p className="current-temperature">{value}</p>
+      </div>
+      <div id="properties">
+        <span className="temperature" onClick={handleTemperatureClick}>Temperature</span>
+        <span className="humidity" onClick={handleHumidityClick}>Humidity</span>
+        <span className="wind" onClick={handleWindClick}>Wind</span>
+      </div>
     </div>
-);
+  );
 };
 
 export default WeatherForecast;
