@@ -73,6 +73,7 @@ header h1 {
 .condition {
   font-size: 25px;
   font-weight: 700;
+  text-transform: capitalize;
 }
 
 .current-weather {
