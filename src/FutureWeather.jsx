@@ -3,6 +3,7 @@ import cloudy from "./weather-icons/cloudy.svg";
 import clear from "./weather-icons/clear.svg";
 import rain from "./weather-icons/rain.svg";
 import snow from "./weather-icons/snow.svg";
+
 const FutureWeather = ({ forecastData }) => {
   return (
     <section id="future-weather">

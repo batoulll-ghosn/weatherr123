@@ -1,33 +1,27 @@
 import React, { useState } from 'react';
 import WeatherForecast from './WeatherForecast';
 import FutureWeather from './FutureWeather';
-import smile from './weather-icons/smile.jpg';
 
 const App = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastData, setForecastData] = useState([]);
-  const [cityName2, setCityName2]= useState(''); 
+  const [cityName2, setCityName2] = useState('');
   let cityName = '';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     cityName = e.target[0].value;
     setCityName2(cityName);
-    console.log(cityName);
-    console.log(e.target.value);
-    console.log(e);
     const apiKey = '5b6af831ac48b7b26262ac5fe047fbd4';
 
     try {
-      // Make API request to OpenWeatherMap for current weather
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`);
-      const currentWeatherData = await response.json();
-      setCurrentWeather(currentWeatherData);
-
-      // Make API request to OpenWeatherMap for future weather
-      const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`);
-      const forecastData = await forecastResponse.json();
-      setForecastData(forecastData.list);
+      // Fetch current weather and forecast data together as this same API provides both (optimization of performance)
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`
+      );
+      const data = await response.json();
+      setCurrentWeather(data);
+      setForecastData(data.list);
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
@@ -57,7 +51,7 @@ const App = () => {
             <button id="pop-up"> </button>
           </div>
           <div>
-            {currentWeather && <WeatherForecast cityName = {cityName2} currentWeather={currentWeather} />}</div>
+            {currentWeather && <WeatherForecast cityName={cityName2} currentWeather={currentWeather} />}</div>
         </div>
       </section>
 

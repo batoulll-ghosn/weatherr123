@@ -4,77 +4,73 @@ import clear from './weather-icons/clear.svg';
 import rain from './weather-icons/rain.svg';
 
 const WeatherForecast = ({ currentWeather, cityName }) => {
-    const [humidityValue, setHumidity] = useState(null);
-    const [windValue, setWind] = useState(null);
-    const [currentTemperature, setCurrentTemperature] = useState('');
-    const [activeTab, setActiveTab] = useState('temperature');
-    const [value, setValue] = useState('');
-    const apiKey = "5b6af831ac48b7b26262ac5fe047fbd4";
+  const [activeTab, setActiveTab] = useState('temperature');
+  const [value, setValue] = useState('');
 
-    // Fetch data when the component mounts or when the cityName prop changes
-    useEffect(() => {
-        fetchWeatherData();
-    }, [cityName]);
+  const getWeatherIcon = (weatherMain) => {
+    switch (weatherMain) {
+      case 'Clouds':
+        return cloudy;
+      case 'Clear':
+        return clear;
+      case 'Rain':
+        return rain;
+      default:
+        return cloudy;
+    }
+  };
 
-    const fetchWeatherData = () => {
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                const humidityValue = data && data.list[0].main.humidity;
-                const windValue = (data.list[0].wind.speed) * 10;
-                const temperatureValue = Math.round(data.list[0].main.temp - 273.15) + " °C";
-
-                setHumidity(humidityValue + " %");
-                setWind(windValue + " km/h");
-                setCurrentTemperature(temperatureValue);
-                setValue(temperatureValue);
-            });
-    };
-
-    const getWeatherIcon = (weatherMain) => {
-        switch (weatherMain) {
-            case 'Clouds':
-                return cloudy;
-            case 'Clear':
-                return clear;
-            case 'Rain':
-                return rain;
-            default:
-                return cloudy;
-        }
-    };
-
-    const handleTemperatureClick = () => {
-        setValue(currentTemperature);
-        setActiveTab('temperature');
-    };
-
-    const handleHumidityClick = () => {
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    switch (tab) {
+      case 'temperature':
+        setValue(temperatureValue);
+        break;
+      case 'humidity':
         setValue(humidityValue);
-        setActiveTab('humidity');
-    };
-
-    const handleWindClick = () => {
+        break;
+      case 'wind':
         setValue(windValue);
-        setActiveTab('wind');
-    };
+        break;
+      default:
+        break;
+    }
+  };
 
-    return (
-        <div className="forecast-details">
-            <p><span className="date">{new Date(currentWeather.dt * 1000).toDateString()}</span></p>
-            <div className="current-weather">
-                <p className="condition" style={{ textTransform: 'capitalize' }}>{currentWeather.weather[0].description}</p>
-                <img alt="icon-condition" src={getWeatherIcon(currentWeather.weather[0].main)} />
-                <p className="current-temperature">{value}</p>
-            </div>
-            <div id="properties">
-                <span className={`temperature ${activeTab === 'temperature' ? 'active' : ''}`} onClick={handleTemperatureClick}>Temperature</span>
-                <span className={`humidity ${activeTab === 'humidity' ? 'active' : ''}`} onClick={handleHumidityClick}>Humidity</span>
-                <span className={`wind ${activeTab === 'wind' ? 'active' : ''}`} onClick={handleWindClick}>Wind</span>
-            </div>
-        </div>
-    );
+  let humidityValue = "";
+  let windValue = "";
+  let temperatureValue = "";
+
+  useEffect(() => {
+    if (currentWeather && currentWeather.list.length > 0) {
+      humidityValue = currentWeather.list[0].main.humidity + " %";
+      windValue = (currentWeather.list[0].wind.speed * 10) + " km/h";
+      temperatureValue = Math.round(currentWeather.list[0].main.temp - 273.15) + " °C";
+      if (activeTab === 'temperature') {
+        setValue(temperatureValue);
+      } else if (activeTab === 'humidity') {
+        setValue(humidityValue);
+      } else if (activeTab === 'wind') {
+        setValue(windValue);
+      }
+    }
+  }, [currentWeather, activeTab]);
+
+  return (
+    <div className="forecast-details">
+      <p><span className="date">{currentWeather && new Date(currentWeather.list[0].dt * 1000).toDateString()}</span></p>
+      <div className="current-weather">
+        <p className="condition" style={{ textTransform: 'capitalize' }}>{currentWeather && currentWeather.list[0].weather.description}</p>
+        <img alt="icon-condition" src={currentWeather && getWeatherIcon(currentWeather.list[0].weather.main)} />
+        <p className="current-temperature">{value}</p>
+      </div>
+      <div id="properties">
+        <span className={`temperature ${activeTab === 'temperature' ? 'active' : ''}`} onClick={() => handleTabClick('temperature')}>Temperature</span>
+        <span className={`humidity ${activeTab === 'humidity' ? 'active' : ''}`} onClick={() => handleTabClick('humidity')}>Humidity</span>
+        <span className={`wind ${activeTab === 'wind' ? 'active' : ''}`} onClick={() => handleTabClick('wind')}>Wind</span>
+      </div>
+    </div>
+  );
 };
 
 export default WeatherForecast;
